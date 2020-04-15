@@ -15,7 +15,7 @@ const FONT_FAMILY_LIST = [
     { font: 'Tangerine' }
 ]
 
-const themeList = (vue)=>{
+const themeList = (vue) => {
     return [
         {
           alias: vue.$t('book.themeDefault'),
@@ -23,8 +23,7 @@ const themeList = (vue)=>{
           style: {
             body: {
               'color': '#4c5059',
-              'background': '#cecece',
-
+              'background': '#cecece'
             },
             img: {
               'width': '100%'
@@ -40,8 +39,7 @@ const themeList = (vue)=>{
           style: {
             body: {
               'color': '#5c5b56',
-              'background': '#c6c2b6',
-
+              'background': '#c6c2b6'
             },
             img: {
               'width': '100%'
@@ -57,8 +55,7 @@ const themeList = (vue)=>{
           style: {
             body: {
               'color': '#404c42',
-              'background': '#a9c1a9',
-
+              'background': '#a9c1a9'
             },
             img: {
               'width': '100%'
@@ -74,8 +71,7 @@ const themeList = (vue)=>{
           style: {
             body: {
               'color': '#cecece',
-              'background': '#000000',
-
+              'background': '#000000'
             },
             img: {
               'width': '100%'
@@ -88,8 +84,35 @@ const themeList = (vue)=>{
       ]
 }
 
+const addCss = (href) => {
+	const link = document.createElement('link');
+	link.setAttribute('rel','stylesheet');
+	link.setAttribute('type','text/css');
+	link.setAttribute('href',href);
+	document.getElementsByTagName('head')[0].appendChild(link);
+}
+
+const removeCss = (href) => {
+	let links = document.getElementsByTagName('link');
+	for(let i = links.length;i>=0;i--){
+		let link = links[i];
+		if(link&&link.getAttribute('href')&&link.getAttribute('href')===href){
+			link.parentNode.removeChild(link);
+		}
+	}
+}
+
+const removeAllCss = () => {
+	let styles = ['theme_default','theme_gold','theme_eye','theme_night'];
+	for(let style of styles){
+		removeCss(`${process.env.VUE_APP_STATIC_URL}theme/` + style + '.css');
+	}
+}
+
 module.exports = {
     FONT_SIZE_LIST,
     FONT_FAMILY_LIST,
-    themeList
+    themeList,
+	addCss,
+	removeAllCss
 }

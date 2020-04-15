@@ -7,7 +7,10 @@ const book = {
     currentBook: null,
     selectedFontFamily: 'Days One',
     fontFamilyVisible: false,
-    selectedTheme: 'Default'
+    selectedTheme: 'Default',
+    bookAvailable: false,
+    progress: 0,
+    section: 0,
   },
   mutations: {
     SET_FILE_NAME(state, fileName) {
@@ -33,6 +36,15 @@ const book = {
     },
     SET_SELECTED_THEME: (state, selectedTheme) => {
       state.selectedTheme = selectedTheme
+    },
+    'SET_BOOK_AVAILABLE': (state, bookAvailable) => {
+      state.bookAvailable = bookAvailable
+    },
+    'SET_PROGRESS': (state, progress) => {
+      state.progress = progress
+    },
+    'SET_SECTION': (state, section) => {
+      state.section = section
     },
   }
 }

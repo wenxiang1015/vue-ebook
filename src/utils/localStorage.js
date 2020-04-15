@@ -2,24 +2,12 @@ import Storage from 'web-storage-cache'
 
 const localStorage = new Storage()
 
-export function getLocalStorage(key) {
-  return localStorage.get(key)
-}
-
 export function setLocalStorage(key, value, expire = 30 * 24 * 3600) {
   return localStorage.set(key, value, { exp: expire })
 }
 
-export function removeLocalStorage(key) {
-  return localStorage.delete(key)
-}
-
-export function clearLocalStorage() {
-  return localStorage.clear()
-}
-
 export function getBookObject(fileName, key) {
-  let book = getLocalStorage(`${fileName}-info`) 
+  let book = localStorage.get(`${fileName}-info`) 
   if (book) {
     return book[key]
   } else {
@@ -28,7 +16,7 @@ export function getBookObject(fileName, key) {
 }
 
 export function setBookObject(fileName, key, value) {
-  let book = getLocalStorage(`${fileName}-info`)
+  let book = localStorage.get(`${fileName}-info`)
   if (!book) {
     book = {}
   }
@@ -37,7 +25,7 @@ export function setBookObject(fileName, key, value) {
 }
 
 export function getHome() {
-  return getLocalStorage('home')
+  return localStorage.get('home')
 }
 
 export function saveHome(home) {
@@ -45,7 +33,7 @@ export function saveHome(home) {
 }
 
 export function getLocale() {
-  return getLocalStorage('locale')
+  return localStorage.get('locale')
 }
 
 export function saveLocale(locale) {
