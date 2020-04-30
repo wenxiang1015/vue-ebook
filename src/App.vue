@@ -14,7 +14,7 @@
 document.addEventListener('DOMContentLoaded',()=>{
   const html = document.querySelector('html')
   let fontSize = window.innerWidth / 10
-  fontSize = fontSize > 50 ? 50 : fontSize
+  fontSize = fontSize > 50 ? 50 : fontSize //防止字体过大,设置上限
   html.style.fontSize = fontSize + 'px'
 
   const viewport = document.querySelector('meta[name=viewport]')

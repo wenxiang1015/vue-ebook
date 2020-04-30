@@ -1,4 +1,4 @@
-$ratio: 375 / 10;
+$ratio: 375 / 10;// 应用中默认以 375 px 为屏幕宽度 
 
 @function px2rem($px) {
   @return $px / $ratio + rem;
@@ -7,7 +7,7 @@ $ratio: 375 / 10;
 @mixin scroll {
   overflow-x: hidden;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch;//解决移动端滚动卡顿
   &::-webkit-scrollbar {
     display: none;
   }

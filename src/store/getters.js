@@ -10,6 +10,13 @@ const book = {
     bookAvailable: state => state.book.bookAvailable,
     progress: state => state.book.progress,
     section: state => state.book.section,
+    cover: state => state.book.cover,
+    metadata: state => state.book.metadata,
+    navigation: state => state.book.navigation,
+    offsetY: state => state.book.offsetY,
+    isBookmark: state => state.book.isBookmark,
+    paginate: state => state.book.paginate,
+    pagelist: state => state.book.pagelist,
 }
 
 export default book

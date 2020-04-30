@@ -26,10 +26,10 @@
       </div>
 
       <div class="setting-font-family" @click="showFontFamilyPopup" >
-        <div class="setting-font-family-text-warpper">
+        <div class="setting-font-family-text-wrapper">
           <span class="setting-font-family-text">{{selectedFontFamily}}</span>
         </div>
-        <div class="setting-font-family-icon-warpper">
+        <div class="setting-font-family-icon-wrapper">
           <span class="icon-forward"></span>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default {
   position: absolute;
   bottom: px2rem(48);
   left: 0;
-  z-index: 101;
+  z-index: 151;
   width: 100%;
   height: px2rem(90);
   background: white;
@@ -143,10 +143,10 @@ export default {
     flex: 1;
     font-size: px2rem(14);
     @include center;
-    .setting-font-family-text-warpper {
+    .setting-font-family-text-wrapper {
       @include center;
     }
-    .setting-font-family-icon-warpper {
+    .setting-font-family-icon-wrapper {
       @include center;
     }
   }

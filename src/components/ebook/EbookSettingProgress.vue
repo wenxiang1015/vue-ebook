@@ -2,12 +2,12 @@
   <transition name="slide-up">
     <div class="setting-wrapper" v-show="menuVisible && settingVisible===2">
       <div class="setting-progress">
-        <div class="read-time-warpper">
+        <div class="read-time-wrapper">
           <span class="read-time-text">{{getReadTimeText()}}</span>
           <span class="icon-forward"></span>
         </div>
         <div class="progress-wrapper">
-          <div class="progress-icon-warpper" @click="prevSection()">
+          <div class="progress-icon-wrapper" @click="prevSection()">
             <span class="icon-back"></span>
           </div>
           <input
@@ -22,7 +22,7 @@
             :disabled="!bookAvailable"
             ref="progress"
           />
-          <div class="progress-icon-warpper" @click="nextSection()">
+          <div class="progress-icon-wrapper" @click="nextSection()">
             <span class="icon-forward"></span>
           </div>
         </div>
@@ -37,22 +37,9 @@
 
 <script>
 import { ebookMixin } from '../../utils/mixin';
-import { getReadTime } from '../../utils/localStorage'
 
 export default {
   mixins: [ebookMixin],
-  computed: {
-    getSectionName(){
-      if (this.section) {
-        const sectionInfo = this.currentBook.section(this.section);
-        if (sectionInfo && sectionInfo.href) {
-          return this.currentBook.navigation.get(sectionInfo.href).label;
-        }
-      }
-      return ''
-    },
-    
-  },
   methods: {
     onProgressChange(progress) {
       this.setProgress(progress).then(() => {
@@ -95,17 +82,6 @@ export default {
       if (sectionInfo && sectionInfo.href) {
         this.display(sectionInfo.href)
       }
-    },
-    getReadTimeText(){
-      return this.$t('book.haveRead').replace('$1',this.getReadTimeByMinute());
-    },
-    getReadTimeByMinute(){
-      const readTime = getReadTime(this.fileName);
-      if(!readTime){
-        return 0;
-      }else{
-        return Math.ceil(readTime/60);
-      }
     }
   },
   updated() {
@@ -121,7 +97,7 @@ export default {
   position: absolute;
   bottom: px2rem(48);
   left: 0;
-  z-index: 101;
+  z-index: 151;
   width: 100%;
   height: px2rem(90);
   background: white;
@@ -133,7 +109,7 @@ export default {
     width: 100%;
     height: 100%;
 
-    .read-time-warpper {
+    .read-time-wrapper {
       position: absolute;
       top: 0;
       left: 0;
@@ -150,7 +126,7 @@ export default {
       padding: 0 px2rem(15);
       box-sizing: border-box;
 
-      .progress-icon-warpper {
+      .progress-icon-wrapper {
         font-size: px2rem(20);
       }
       .progress {

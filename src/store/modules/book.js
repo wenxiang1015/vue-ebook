@@ -8,9 +8,16 @@ const book = {
     selectedFontFamily: 'Days One',
     fontFamilyVisible: false,
     selectedTheme: 'Default',
-    bookAvailable: false,
+    bookAvailable: false,//分页是否完成
     progress: 0,
-    section: 0,
+    section: 0,//章节
+    cover: null,//封面图片
+    metadata: null,//图书元信息
+    navigation: null,//目录
+    offsetY: 0,//下拉偏移量
+    isBookmark: false,//当前页是否是书签页
+    paginate: '',// 分页信息
+    pagelist: null,//分页后的 location 集合
   },
   mutations: {
     SET_FILE_NAME(state, fileName) {
@@ -45,6 +52,27 @@ const book = {
     },
     'SET_SECTION': (state, section) => {
       state.section = section
+    },
+    'SET_COVER': (state, cover) => {
+      state.cover = cover
+    },
+    'SET_METADATA': (state, metadata) => {
+      state.metadata = metadata
+    },
+    'SET_NAVIGATION': (state, navigation) => {
+      state.navigation = navigation
+    },
+    'SET_OFFSETY': (state, offsetY) => {
+      state.offsetY = offsetY
+    },
+    'SET_IS_BOOKMARK': (state, isBookmark) => {
+      state.isBookmark = isBookmark
+    },
+    'SET_PAGINATE': (state, paginate) => {
+      state.paginate = paginate
+    },
+    'SET_PAGELIST': (state, pagelist) => {
+      state.pagelist = pagelist
     },
   }
 }

@@ -7,7 +7,7 @@
       </div>
       <span class="ebook-popup-title-text">{{$t('book.selectFont')}}</span>
     </div>
-    <div class="ebook-popup-list-warpper">
+    <div class="ebook-popup-list-wrapper">
       <div class="ebook-popup-item" v-for="(item,index) in fontFamilyList" :key="index" 
       :class="{'selected':selectedFontFamily===item.font}" @click="setFontFamily(item.font)">
         <div class="ebook-popup-item-text" >{{item.font}}</div>
@@ -78,7 +78,7 @@ export default {
       font-weight: bold;
     }
   }
-  .ebook-popup-list-warpper {
+  .ebook-popup-list-wrapper {
     .ebook-popup-item {
       display: flex;
       padding: px2rem(15);
