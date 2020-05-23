@@ -1,16 +1,18 @@
-$ratio: 375 / 10;// 应用中默认以 375 px 为屏幕宽度 
+$animationTime: .2s;
+$animationType: linear;
+$ratio: 375 / 10;
 
 @function px2rem($px) {
   @return $px / $ratio + rem;
 }
 
-@mixin scroll {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;//解决移动端滚动卡顿
-  &::-webkit-scrollbar {
-    display: none;
-  }
+@mixin adsCenter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 @mixin center {
@@ -18,25 +20,6 @@ $ratio: 375 / 10;// 应用中默认以 375 px 为屏幕宽度
   justify-content: center;
   align-items: center;
 }
-
-@mixin top {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-@mixin bottom {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-@mixin leftBottom {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-}
-
 
 @mixin left {
   display: flex;
@@ -50,47 +33,10 @@ $ratio: 375 / 10;// 应用中默认以 375 px 为屏幕宽度
   align-items: center;
 }
 
-@mixin rightBottom {
+@mixin top {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-
-@mixin columnCenter {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin columnTop {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-@mixin columnTopLeft {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-@mixin columnLeft {
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-}
-
-@mixin absCenter {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
 }
 
 @mixin ellipsis {
@@ -103,104 +49,55 @@ $ratio: 375 / 10;// 应用中默认以 375 px 为屏幕宽度
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $line;
-  word-break: keep-all;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 
-@mixin shelfImgHeight {
-  @media screen and (max-width:414px) {
-    height: px2rem(115)
+@mixin columnLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+@mixin columnCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin columnTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;//向上排列 不是 center
+  align-items: center;
+}
+
+@mixin scroll {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;//解决移动端滚动卡顿
+  &::-webkit-scrollbar {
+    display: none;
   }
-  @media screen and (min-width: 415px) and (max-width: 500px) {
-    height: px2rem(115)
-  }
-  @media screen and (min-width: 501px) and (max-width: 600px) {
-    height: px2rem(125)
-  }
-  @media screen and (min-width: 601px) and (max-width: 700px) {
-    height: px2rem(155)
-  }
-  @media screen and (min-width: 701px) and (max-width: 800px) {
-    height: px2rem(155)
-  }
-  @media screen and (min-width: 801px) {
-    height: px2rem(155)
-  }
 }
 
-.slide-down-enter, .slide-down-leave-to {
-  transform: translate3d(0, -100%, 0)
-}
-.slide-down-enter-to, .slide-down-leave, .slide-up-enter-to, .slide-up-leave, .slide-right-enter-to, .slide-right-leave, .opacity-slide-up-enter-to, .opacity-slide-up-leave {
-  transform: translate3d(0, 0, 0)
-}
-
-.popup-slide-up-enter-to, .popup-slide-up-leave {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
+@mixin leftBottom {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
 }
 
-.slide-down-enter-active, .slide-down-leave-active, .slide-up-enter-active, .slide-up-leave-active, .fade-enter-active, .fade-leave-active, .slide-right-enter-active, .slide-right-leave-active, .popup-slide-up-enter-active, .popup-slide-up-leave-active {
-  transition: all .2s linear;
+.icon {
+  color: #666;
+  font-size: px2rem(16);
 }
 
-.slide-up-enter, .slide-up-leave-to {
-  transform: translate3d(0, px2rem(138), 0)
-}
-
-.popup-slide-up-enter, .popup-slide-up-leave-to {
-  transform: translate3d(0, 100%, 0);
-  opacity: 0;
-}
-
-.slide-right-enter, .slide-right-leave-to {
-  transform: translate3d(-100%, 0, 0);
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-to, .fade-leave {
-  opacity: 1;
-}
-
-$homeAnimationTime: .2s;
-.title-enter-active, .title-leave-active, .host-search-enter-active, .host-search-leave-active, .shelf-tab-slide-up-enter-active, .shelf-tab-slide-up-leave-active {
-  transition: all $homeAnimationTime linear;
-}
-
-.title-enter, .title-leave-to {
-  transform: translate3d(0, px2rem(10), 0);
-  opacity: 0;
-}
-
-.title-leave, .title-enter-to, .host-search-leave, .host-search-enter-to, .shelf-tab-slide-up-enter-to, .shelf-tab-slide-up-leave {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
-}
-
-.host-search-enter, .host-search-leave-to {
-  transform: translate3d(0, px2rem(50), 0);
-  opacity: 0;
-}
-
-.shelf-tab-slide-up-enter, .shelf-tab-slide-up-leave-to {
-  transform: translate3d(0, px2rem(30), 0);
-  opacity: 0;
-}
-
-.popup-slide-up-enter, .popup-slide-up-leave-to {
-  transform: translate3d(0, 100%, 0);
-}
-
-.opacity-slide-up-enter, .opacity-slide-up-leave-to {
-  transform: translate3d(0, 100%, 0);
-}
-
-.opacity-slide-up-enter-active, .opacity-slide-up-leave-active {
-  transition: all .2s linear;
+.title {
+  color: #666;
+  font-size: px2rem(16);
+  font-weight: bold;
 }

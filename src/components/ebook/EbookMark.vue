@@ -177,7 +177,7 @@ export default {
     .ebook-mark-down-wrapper {
       font-size: px2rem(14);
       color: white;
-      transition: all 0.2s linear;
+      transition: all $animationTime $animationType;
       @include center;
     }
     .ebook-mark-text {

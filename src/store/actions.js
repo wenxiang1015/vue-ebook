@@ -53,6 +53,31 @@ const actions = {
     setPagelist: ({ commit }, pagelist) => {
         return commit('SET_PAGELIST', pagelist)
     },
+
+    setHotSearchOffsetY: ({ commit }, hotSearchOffsetY) => {
+        return commit('SET_HOT_SEARCH_OFFSETY',hotSearchOffsetY)
+    },
+    setFlapCardVisible: ({ commit }, flapCardVisible) => {
+        return commit('SET_FLAP_CARD_VISIBLE',flapCardVisible)
+    },
+    setIsEditMode: ({ commit }, isEditMode) => {
+        return commit('SET_IS_EDIT_MODE',isEditMode)
+    },
+    setShelfList: ({ commit }, shelfList) => {
+        return commit('SET_SHELF_LIST',shelfList)
+    },
+    setShelfSelected: ({ commit }, shelfSelected) => {
+        return commit('SET_SHELF_SELECTED',shelfSelected)
+    },
+    setShelfTitleVisible: ({ commit }, shelfTitleVisible) => {
+        return commit('SET_SHELF_TITLE_VISIBLE',shelfTitleVisible)
+    },
+    setShelfCategory ({ commit }, shelfCategory) {
+        return commit('SET_SHELF_CATEGORY', shelfCategory)
+    },
+    setCurrentType ({ commit }, currentType) {
+        return commit('SET_SHELF_CURRENT_TYPE', currentType)
+    }
 }
 
 export default actions;

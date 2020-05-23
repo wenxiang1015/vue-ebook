@@ -117,7 +117,7 @@ export function removeCss(href) {
 export function removeAllCss() {
 	let styles = ['theme_default','theme_gold','theme_eye','theme_night'];
 	for(let style of styles){
-		removeCss(`${process.env.VUE_APP_STATIC_URL}theme/` + style + '.css');
+		removeCss(`${process.env.VUE_APP_STATIC_URL}/theme/` + style + '.css');
 	}
 }
 

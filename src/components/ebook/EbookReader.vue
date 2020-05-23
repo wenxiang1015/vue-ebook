@@ -19,6 +19,7 @@ import {
 } from "../../utils/localStorage";
 import Epub from "epubjs";
 import { flatten } from "../../utils/book"
+import {getLocalForage} from "../../utils/localForage";
 
 global.ePub = Epub;
 
@@ -161,16 +162,16 @@ export default {
       this.rendition.hooks.content.register(contents => {
         Promise.all([
           contents.addStylesheet(
-            `${process.env.VUE_APP_STATIC_URL}fonts/daysOne.css`
+            `${process.env.VUE_APP_STATIC_URL}/fonts/daysOne.css`
           ),
           contents.addStylesheet(
-            `${process.env.VUE_APP_STATIC_URL}fonts/tangerine.css`
+            `${process.env.VUE_APP_STATIC_URL}/fonts/tangerine.css`
           ),
           contents.addStylesheet(
-            `${process.env.VUE_APP_STATIC_URL}fonts/montserrat.css`
+            `${process.env.VUE_APP_STATIC_URL}/fonts/montserrat.css`
           ),
           contents.addStylesheet(
-            `${process.env.VUE_APP_STATIC_URL}fonts/cabin.css`
+            `${process.env.VUE_APP_STATIC_URL}/fonts/cabin.css`
           )
         ]);
       });
@@ -229,9 +230,7 @@ export default {
         this.setNavigation(navItem);
       })
     },
-    initEpub() {
-      const url =
-        process.env.VUE_APP_STATIC_URL + "epub/" + this.fileName + ".epub";
+    initEpub(url) {
       this.book = new Epub(url);
       this.setCurrentBook(this.book);
       this.initRendition();
@@ -271,10 +270,20 @@ export default {
     }
   },
   mounted() {
-    const fileName = this.$route.params.fileName.split("|").join("/");
-    this.setFileName(fileName).then(() => {
-      this.initEpub();
-    });
+    const books = this.$route.params.fileName.split('|')
+    const fileName = books[1];
+    getLocalForage(fileName,(err,blob) => {
+      if(!err && blob) {
+        this.setFileName(books.join('/')).then(() => {
+          this.initEpub(blob)
+        })
+      } else {
+        this.setFileName(books.join('/')).then(() => {
+          const url = process.env.VUE_APP_STATIC_URL + "/epub/" + this.fileName + ".epub";
+          this.initEpub(url)
+        })
+      }
+    })
   }
 };
 </script>

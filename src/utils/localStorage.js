@@ -2,6 +2,18 @@ import Storage from 'web-storage-cache'
 
 const localStorage = new Storage()
 
+export function getLocalStorage(key) {
+  return localStorage.get(key)
+}
+
+export function removeLocalStorage(key) {
+  return localStorage.delete(key)
+}
+
+export function clearLocalStorage() {
+  return localStorage.clear()
+}
+
 export function setLocalStorage(key, value, expire = 30 * 24 * 3600) {
   return localStorage.set(key, value, { exp: expire })
 }
@@ -118,4 +130,105 @@ export function getFontSize(fileName) {
 
 export function saveFontSize(fileName, fontSize) {
   setBookObject(fileName, 'fontSize', fontSize)
+}
+
+export function saveBookShelf(shelf) {
+  return setLocalStorage('shelf',shelf);
+}
+
+export function getBookShelf() {
+  return localStorage.get('shelf');
+}
+
+const BOOK_SHELF_KEY = 'bookShelf'
+
+export function addToShelf(book) {
+  let bookList = localStorage.get(BOOK_SHELF_KEY)
+  bookList = clearAddFromBookList(bookList)
+  book.type = 1
+  bookList.push(book)
+  bookList.forEach((item, index) => {
+    item.id = index + 1
+  })
+  appendAddToBookList(bookList)
+  setLocalStorage(BOOK_SHELF_KEY, bookList)
+}
+
+export function appendAddToBookList(bookList) {
+  bookList.push({
+    cover: '',
+    title: '',
+    type: 3,
+    id: Number.MAX_SAFE_INTEGER
+  })
+}
+
+export function clearAddFromBookList(bookList) {
+  return bookList.filter(item => {
+    return item.type !== 3
+  })
+}
+
+export function removeFromBookShelf(bookItem) {
+  let bookList = localStorage.get(BOOK_SHELF_KEY)
+  bookList = bookList.filter(item => {
+    if (item.itemList) {
+      item.itemList = item.itemList.filter(subItem => subItem.fileName !== bookItem.fileName)
+    }
+    return item.fileName !== bookItem.fileName
+  })
+  setLocalStorage(BOOK_SHELF_KEY, bookList)
+}
+
+export function flatBookList(bookList) {
+  if (bookList) {
+    let orgBookList = bookList.filter(item => {
+      return item.type !== 3
+    })
+    const categoryList = bookList.filter(item => {
+      return item.type === 2
+    })
+    categoryList.forEach(item => {
+      const index = orgBookList.findIndex(v => {
+        return v.id === item.id
+      })
+      if (item.itemList) {
+        item.itemList.forEach(subItem => {
+          orgBookList.splice(index, 0, subItem)
+        })
+      }
+    })
+    orgBookList.forEach((item, index) => {
+      item.id = index + 1
+    })
+    orgBookList = orgBookList.filter(item => item.type !== 2)
+    return orgBookList
+  } else {
+    return []
+  }
+}
+
+export function findBook(fileName) {
+  const bookList = localStorage.get(BOOK_SHELF_KEY)
+  return flatBookList(bookList).find(item => item.fileName === fileName)
+}
+
+export function removeBookCache(fileName) {
+  return new Promise(() => {//resolve, reject
+    localStorage.delete(fileName)
+    localStorage.delete(`${fileName}-info`)
+    // removeLocalForage(fileName, () => {
+    //   console.log(`[${fileName}]删除成功...`)
+    //   resolve()
+    // }, reject)
+  })
+}
+
+export function switchLocale(vue) {
+  if (vue.$i18n.locale === 'en') {
+    vue.$i18n.locale = 'cn'
+  } else {
+    vue.$i18n.locale = 'en'
+  }
+  setLocalStorage('locale', vue.$i18n.locale)
 }

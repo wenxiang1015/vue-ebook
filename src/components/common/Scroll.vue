@@ -19,7 +19,7 @@ export default {
     }
   },
   methods: {
-    //传递位移给父组件
+    // 传递位移给父组件
     handleScroll(e){
       const offsetY = e.target.scrollTop||window.pageYOffset||document.body.scrollTop;
       if(this.$parent&&this.$parent.onScroll&&typeof(this.$parent.onScroll)==='function'){
@@ -27,6 +27,11 @@ export default {
       }
       // this.$emit('test',offsetY)//这里的 $emit 在父组件无法触发 TODO
     },
+    // 调用原生的 scrollTo
+    scrollTo(x, y) {
+      this.$refs.scrollWrapper.scrollTo(x, y)
+    },
+    // 重新渲染组件高度
     refresh(){
       if(this.$refs.scrollWrapper){
         this.$refs.scrollWrapper.style.height = window.innerHeight - realPx(this.top) - realPx(this.bottom) + 'px';
