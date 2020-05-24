@@ -1,3 +1,24 @@
+import {getBookShelf, getLocalStorage, saveBookShelf} from "./localStorage";
+
+export function addToShelf (book) {
+    let shelfList = getBookShelf()
+    shelfList = removeAddFromShelf(shelfList)
+    book.type = 1
+    shelfList.push(book)
+    shelfList = computeId(shelfList)
+    shelfList = appendAddToShelf(shelfList)
+    saveBookShelf(shelfList)
+}
+
+export function removeFromBookShelf (book) {
+    return getBookShelf().filter(item => {
+        if (item.itemList) {
+            item.itemList = item.itemList.filter(subItem => subItem.fileName !== book.fileName);
+        }
+        return item.fileName !== book.fileName
+    })
+}
+
 export function getCategoryName(id) {
     switch (id) {
         case 1:
@@ -159,4 +180,37 @@ export function computeId(list) {
         }
         return book;
     })
+}
+
+export function flatBookList (bookList) {
+    if (bookList) {
+        let orgBookList = bookList.filter(item => {
+            return item.type !== 3
+        })
+        const categoryList = bookList.filter(item => {
+            return item.type === 2
+        })
+        categoryList.forEach(item => {
+            const index = orgBookList.findIndex(v => {
+                return v.id === item.id
+            })
+            if (item.itemList) {
+                item.itemList.forEach(subItem => {
+                    orgBookList.splice(index, 0, subItem)
+                })
+            }
+        })
+        orgBookList.forEach((item, index) => {
+            item.id = index + 1
+        })
+        orgBookList = orgBookList.filter(item => item.type !== 2)
+        return orgBookList
+    } else {
+        return []
+    }
+}
+
+export function findBook (fileName) {
+    const bookList = getLocalStorage('shelf')
+    return flatBookList(bookList).find(item => item.fileName === fileName)
 }

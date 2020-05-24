@@ -57,7 +57,7 @@ export default {
     return {
       scrollTop: 94,
       random: null, //随机推荐的书籍
-      banner: null,
+      banner: '',
       guessYouLike: null,
       recommend: null,
       featured: null,

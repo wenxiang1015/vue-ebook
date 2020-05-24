@@ -140,20 +140,6 @@ export function getBookShelf() {
   return localStorage.get('shelf');
 }
 
-const BOOK_SHELF_KEY = 'bookShelf'
-
-export function addToShelf(book) {
-  let bookList = localStorage.get(BOOK_SHELF_KEY)
-  bookList = clearAddFromBookList(bookList)
-  book.type = 1
-  bookList.push(book)
-  bookList.forEach((item, index) => {
-    item.id = index + 1
-  })
-  appendAddToBookList(bookList)
-  setLocalStorage(BOOK_SHELF_KEY, bookList)
-}
-
 export function appendAddToBookList(bookList) {
   bookList.push({
     cover: '',
@@ -167,17 +153,6 @@ export function clearAddFromBookList(bookList) {
   return bookList.filter(item => {
     return item.type !== 3
   })
-}
-
-export function removeFromBookShelf(bookItem) {
-  let bookList = localStorage.get(BOOK_SHELF_KEY)
-  bookList = bookList.filter(item => {
-    if (item.itemList) {
-      item.itemList = item.itemList.filter(subItem => subItem.fileName !== bookItem.fileName)
-    }
-    return item.fileName !== bookItem.fileName
-  })
-  setLocalStorage(BOOK_SHELF_KEY, bookList)
 }
 
 export function flatBookList(bookList) {
@@ -206,11 +181,6 @@ export function flatBookList(bookList) {
   } else {
     return []
   }
-}
-
-export function findBook(fileName) {
-  const bookList = localStorage.get(BOOK_SHELF_KEY)
-  return flatBookList(bookList).find(item => item.fileName === fileName)
 }
 
 export function removeBookCache(fileName) {

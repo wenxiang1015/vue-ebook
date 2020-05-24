@@ -251,9 +251,12 @@ export default {
             const loc = item.match(/\[(.*)]!/)[1]
             this.navigation.forEach(nav=>{
               if(nav.href){
-                const href = nav.href.match(/^(.*)\.html$/)[1]
-                if(href === loc){
-                  nav.pageList.push(item);//将 location 对应到 navigation 中去
+                let arr = nav.href.match(/^(.*)\.html$/);
+                if(arr && arr.length > 1) {
+                  const href = arr[1];
+                  if(href && href === loc){
+                    nav.pageList.push(item);//将 location 对应到 navigation 中去
+                  }
                 }
               }
             })
@@ -279,7 +282,8 @@ export default {
         })
       } else {
         this.setFileName(books.join('/')).then(() => {
-          const url = process.env.VUE_APP_STATIC_URL + "/epub/" + this.fileName + ".epub";
+          // const url = process.env.VUE_APP_STATIC_URL + "/epub/" + this.fileName + ".epub";//开发环境
+          const url = process.env.VUE_APP_EPUB_URL + "/" + this.fileName + ".epub";//生产环境
           this.initEpub(url)
         })
       }

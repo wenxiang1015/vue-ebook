@@ -25,5 +25,12 @@ module.exports = {
                 target: 'http://47.99.166.157:3000'
             }
         }
+    },
+    configureWebpack: {
+        performance: {
+            hints: 'warning',
+            maxAssetSize: 524288,
+            maxEntrypointSize: 524288
+        }
     }
 }

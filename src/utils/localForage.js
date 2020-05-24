@@ -34,21 +34,20 @@ export function lengthLocalForage(cb) {
   localForage.length().then(
     numberOfKeys => {
       if (cb) cb(numberOfKeys)
-      console.log(numberOfKeys)
-    }).catch(function(err) {
-    console.log(err)
+    }).catch(function() {//err
+    // console.log(err)
   })
 }
 
-export function iteratorLocalForage() {
-  localForage.iterate(function(value, key, iterationNumber) {
-    console.log([key, value],iterationNumber)
-  }).then(function() {
-    console.log('Iteration has completed')
-  }).catch(function(err) {
-    console.log(err)
-  })
-}
+// export function iteratorLocalForage() {
+//   localForage.iterate(function(value, key, iterationNumber) {
+//     console.log([key, value],iterationNumber)
+//   }).then(function() {
+//     console.log('Iteration has completed')
+//   }).catch(function(err) {
+//     console.log(err)
+//   })
+// }
 
 export function support() {
   const indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || null
